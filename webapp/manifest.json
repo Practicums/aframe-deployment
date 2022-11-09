@@ -1,0 +1,22 @@
+{
+    "name":"Simple PWA Example",
+    "short_name":"SamplePWA",
+    "start_url":"https://webxrpwaattempt.tiiny.site",
+    "background_color":"#fff",
+    "theme_color":"#2d0",
+    "ovr_package_name":"com.thecube.com",
+    "display":"standalone",
+    "icons":[
+        {
+            "src":"images/logo192.png",
+            "sizes":"192x192",
+            "type":"image/png",
+            "purpose":"maskable"
+        },
+        {
+            "src":"images/logo512.png",
+            "sizes":"512x512",
+            "type":"image/png"
+        }
+    ]
+}
