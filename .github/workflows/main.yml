@@ -47,7 +47,7 @@ jobs:
           project_id:  ${{ env.Project_Name }}
           
       - name: Copy files to remote vm
-        run: rsync -avz -e "ssh -p 22" ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_HOST }}/project/${{ env.Name }} --delete
+        run: rsync -avz -e "ssh -p 22" ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/project/${{ env.Name }} --delete
         #run:  gcloud compute scp --zone "us-central1-a" --recurse ./ ${{ secrets.SSH_USER }}@instance-1:/home/${{ secrets.SSH_USER }}/project/${{ env.Name } --project ${{ env.Project_Name }
       
       - name: Authenticate Docker
