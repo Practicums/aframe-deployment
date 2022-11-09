@@ -11,7 +11,7 @@ on:
     branches: [ "main" ]
 
 env:
-  Name : aframe-project
+  Name : aframe-deployment
   Project_Name : metaverse-363005
   Cluster_name : aframe-cluster
   Server_Name : aframe-server
@@ -28,7 +28,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
