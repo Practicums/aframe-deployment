@@ -44,7 +44,10 @@ jobs:
           service_account_key: ${{ secrets.GCP_KEY }}
           service_account_email: ${{ secrets.SERVICE_EMAIL }}
           project_id:  ${{ env.Project_Name }}
-          
+
+      - name: Copy files to remote vm
+        run: rsync -avz -e "ssh -p 22" ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/project/${{ env.Name }} --delete
+
       - name: Authenticate Docker
         run: |-
           gcloud auth configure-docker -q
@@ -78,4 +81,5 @@ jobs:
             kubectl expose deployment ${{ env.Server_Name }} --name=${{ env.Service_Name }} --type=LoadBalancer --port=80 --target-port=80
             sleep 60
             kubectl get services ${{ env.Service_Name }} | awk '{ print $4 }' | tail -1 > temp.txt
-            /home/metaverseops/testproject/code/webapp_test.py temp.txt
+            /home/${{ secrets.SSH_USER }}/testproject/code/webapp_test.py temp.txt
+            /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/gen.py --pkgname "aframe.application" --long "AFrame Application" --short "AF" --url "$(< temp.txt)" --path "./webapp" --html "index.html"
