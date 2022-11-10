@@ -18,7 +18,7 @@ env:
 
 jobs:
   build_deploy_test:
-    name: Build, Deploy and Test Solipsisworld application
+    name: Build, Deploy and Test A-Frame application
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
