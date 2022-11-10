@@ -82,4 +82,4 @@ jobs:
             sleep 60
             kubectl get services ${{ env.Service_Name }} | awk '{ print $4 }' | tail -1 > temp.txt
             /home/${{ secrets.SSH_USER }}/testproject/code/webapp_test.py temp.txt
-            /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/gen.py --pkgname "aframe.application" --long "AFrame Application" --short "AF" --url "$(< temp.txt)" --path "./webapp" --html "index.html"
+            /usr/bin/python3 /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/gen.py --pkgname "aframe.application" --long "AFrame Application" --short "AF" --url "$(< temp.txt)" --path "./webapp" --html "index.html"
