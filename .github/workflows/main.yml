@@ -1,5 +1,4 @@
 # This is a workflow to build, deploy and test A-Frame applications.
-
 name: A-Frame Deployment Pipeline
 
 # Controls when the workflow will run
@@ -11,14 +10,13 @@ on:
     branches: [ "main" ]
 
 env:
-  Name : aframe-deployment
+  Name : aframe
   Project_Name : metaverse-363005
   Cluster_name : aframe-cluster
   Server_Name : aframe-server
   Service_Name : aframe-service
 
 jobs:
-  # This workflow contains a single job called "build"
   build_deploy_test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -46,25 +44,21 @@ jobs:
           service_account_email: ${{ secrets.SERVICE_EMAIL }}
           project_id:  ${{ env.Project_Name }}
           
-      #- name: Copy files to remote vm
-      #  run: rsync -avz -e "ssh -p 22" ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/project/${{ env.Name }} --delete
-        #run:  gcloud compute scp --zone "us-central1-a" --recurse ./ ${{ secrets.SSH_USER }}@instance-1:/home/${{ secrets.SSH_USER }}/project/${{ env.Name } --project ${{ env.Project_Name }
-      
       - name: Authenticate Docker
         run: |-
           gcloud auth configure-docker -q
             
       - name: Build Docker Image
         run: |-
-          docker build -t aframe .
+          docker build -t ${{ env.Name }} .
 
       - name: Tag Docker Image
         run: |-
-          docker tag aframe gcr.io/${{ env.Project_Name }}/aframe
+          docker tag ${{ env.Name }} gcr.io/${{ env.Project_Name }}/${{ env.Name }}
 
       - name: Push Docker Image
         run: |-
-          docker push gcr.io/${{ env.Project_Name }}/aframe
+          docker push gcr.io/${{ env.Project_Name }}/${{ env.Name }}
 
       - name: Deploy Docker Image
         uses: appleboy/ssh-action@master
@@ -74,12 +68,12 @@ jobs:
           key: ${{ secrets.RSA_KEY }} 
           port: 22
           script: | 
-            gcloud container clusters create ${{ env.Cluster_name }}
+            gcloud container clusters create ${{ env.Cluster_name }} 2> /dev/null
             gcloud container clusters get-credentials ${{ env.Cluster_name }}
             kubectl delete deployment ${{ env.Server_Name }}
             kubectl delete service ${{ env.Service_Name }} 
             sleep 10
-            kubectl create deployment ${{ env.Server_Name }} --image=gcr.io/${{ env.Project_Name }}/aframe
+            kubectl create deployment ${{ env.Server_Name }} --image=gcr.io/${{ env.Project_Name }}/${{ env.Name }}
             kubectl expose deployment ${{ env.Server_Name }} --name=${{ env.Service_Name }} --type=LoadBalancer --port=80 --target-port=80
             sleep 60
             kubectl get services ${{ env.Service_Name }} | awk '{ print $4 }' | tail -1 > temp.txt
