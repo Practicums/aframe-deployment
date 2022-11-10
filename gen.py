@@ -141,13 +141,13 @@ def swjswrite(path):
 
 # write to the html file
 def htmlgen(path, html):
-    with open("%s" % (path, html), "r") as f:
+    with open("%s%s" % (path, html), "r") as f:
         html_data = f.read()
 
     new_html = parsehtmljson(html_data)
     new_html = parsehtmljs(new_html)
 
-    with open("%s" % (path, html), "w") as f:
+    with open("%s%s" % (path, html), "w") as f:
         f.write(new_html)
     return
 
