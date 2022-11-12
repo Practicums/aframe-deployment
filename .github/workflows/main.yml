@@ -15,6 +15,7 @@ env:
   Cluster_name : aframe-cluster
   Server_Name : aframe-server
   Service_Name : aframe-service
+  Ext_IP: 104.154.106.207
 
 jobs:
   build_deploy_test:
@@ -43,7 +44,7 @@ jobs:
           version: '286.0.0'
           service_account_key: ${{ secrets.GCP_KEY }}
           service_account_email: ${{ secrets.SERVICE_EMAIL }}
-          project_id:  ${{ env.Project_Name }}
+          project_id: ${{ env.Project_Name }}
 
       - name: Copy files to remote vm
         run: rsync -avz -e "ssh -p 22" ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/project/${{ env.Name }} --delete
@@ -78,7 +79,7 @@ jobs:
             kubectl delete service ${{ env.Service_Name }} 
             sleep 10
             kubectl create deployment ${{ env.Server_Name }} --image=gcr.io/${{ env.Project_Name }}/${{ env.Name }}
-            kubectl expose deployment ${{ env.Server_Name }} --name=${{ env.Service_Name }} --type=LoadBalancer --port=80 --target-port=80
+            kubectl expose deployment ${{ env.Server_Name }} --name=${{ env.Service_Name }} --type=LoadBalancer --port=80 --target-port=80 --load-balancer-ip=${{ env.Project_Name }}
             sleep 60
             kubectl get services ${{ env.Service_Name }} | awk '{ print $4 }' | tail -1 > temp.txt
             /home/${{ secrets.SSH_USER }}/testproject/code/webapp_test.py temp.txt
