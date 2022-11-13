@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: aframe-tls
+  namespace: default
+spec:
+  secretName: aframe-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: aframe.endpoints.metaverse-363005.cloud.goog
+  dnsNames:
+  - aframe.endpoints.metaverse-363005.cloud.goog
