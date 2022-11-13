@@ -81,13 +81,11 @@ jobs:
             helm install nginx-stable/nginx-ingress --set controller.service.loadBalancerIP="${{ env.Ext_IP }}",rbac.create=true --generate-name
             kubectl create deployment ${{ env.Server_Name }} --image=gcr.io/${{ env.Project_Name }}/${{ env.Name }}
             kubectl expose deployment ${{ env.Server_Name }} --name=${{ env.Service_Name }} --port=80 --target-port=80
-            sleep 20
+            sleep 60
             kubectl apply -f ingress.yaml
             chmod +x /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/cert-manager_install.sh && /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/cert-manager_install.sh
             export EMAIL=${{ secrets.SERVICE_EMAIL }}
             cat /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/letsencrypt-issuer.yaml | sed -e "s/email: ''/email: $EMAIL/g" | kubectl apply -f-
             kubectl apply -f /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/ingress-tls.yaml
-            # kubectl get services ${{ env.Service_Name }} | awk '{ print $4 }' | tail -1 > temp.txt
             /home/${{ secrets.SSH_USER }}/testproject/code/webapp_test.py temp.txt
             /usr/bin/python3 /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/gen.py --pkgname "aframe.application" --long "AFrame Application" --short "AF" --url "${{ env.Name }}" --path "/home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/webapp/" --html "index.html"
-            #/usr/bin/python3 /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/gen.py --pkgname "aframe.application" --long "AFrame Application" --short "AF" --url "$(< ~/temp.txt)" --path "/home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/webapp/" --html "index.html"
