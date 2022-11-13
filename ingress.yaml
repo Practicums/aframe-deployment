@@ -16,6 +16,6 @@ spec:
         pathType: Prefix
         backend:
             service:
-              name: aframe-srv
+              name: aframe-service
               port:
                 number: 80
