@@ -1,10 +1,10 @@
 {
-    "name":"Simple PWA Example",
-    "short_name":"SamplePWA",
-    "start_url":"https://webxrpwaattempt.tiiny.site",
+    "name":"Basic PWA Example",
+    "short_name":"BasicPWA",
+    "start_url":"http://104.154.106.207/",
     "background_color":"#fff",
     "theme_color":"#2d0",
-    "ovr_package_name":"com.thecube.com",
+    "ovr_package_name":"104.154.106.207",
     "display":"standalone",
     "icons":[
         {
