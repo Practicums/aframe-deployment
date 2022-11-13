@@ -4,7 +4,7 @@
     "start_url":"http://104.154.106.207/",
     "background_color":"#fff",
     "theme_color":"#2d0",
-    "ovr_package_name":"104.154.106.207",
+    "ovr_package_name":"ovr.testing.aframe",
     "display":"standalone",
     "icons":[
         {
