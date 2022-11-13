@@ -72,7 +72,7 @@ jobs:
           key: ${{ secrets.RSA_KEY }} 
           port: 22
           script: | 
-            gcloud endpoints services deploy /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/openapi.yaml 2> /dev/null
+            gcloud endpoints services deploy /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/openapi.yaml 
             gcloud container clusters create ${{ env.Cluster_name }} 2> /dev/null
             gcloud container clusters get-credentials ${{ env.Cluster_name }}
             kubectl delete service ${{ env.Service_Name }} 
