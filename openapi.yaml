@@ -9,7 +9,7 @@ x-google-allow: all
 x-google-endpoints:
 - name: "aframe.endpoints.metaverse-363005.cloud.goog"
   allowCors: true
-  target: 104.154.106.207
+  target: 34.102.110.191
 consumes:
 - "application/json"
 produces:
