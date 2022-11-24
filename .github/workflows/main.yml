@@ -92,6 +92,7 @@ jobs:
             export EMAIL=${{ secrets.SERVICE_EMAIL }}
             cat /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/letsencrypt-issuer.yaml | sed -e "s/email: ''/email: $EMAIL/g" | kubectl apply -f-
             kubectl apply -f /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/ingress-tls.yaml
+            sleep 30
             /home/${{ secrets.SSH_USER }}/testproject/code/webapp_test.py ${{ env.URL }}
             /usr/bin/python3 /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/gen.py --pkgname "${{ env.pkgname }}" --long "AFrame Application" --short "AF" --url "${{ env.URL }}" --path "/home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/webapp/" --html "index.html"
             /usr/bin/sshpass -f /home/${{ secrets.SSH_USER }}/project/winpass.txt ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.WINDOWS_HOST }} 'mkdir .\Documents\${{ env.Name }}'
