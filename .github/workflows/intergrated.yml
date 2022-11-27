@@ -160,7 +160,8 @@ jobs:
 
         - name: zip apk file
           run: |
-            zip app.zip ./output.apk 
+            mv ./output.apk  ./outputapk
+            tar -cvf apps.tar ./outputapk
             mv git_action_requirement/white_box_html/test_changed.html git_action_requirement/white_box_html/report.html 
            
         - name: Send mail
@@ -180,6 +181,6 @@ jobs:
             from: Metaverse CICD Developer # <user@example.com>
             # Optional plain body:
             html_body: file://${{ github.workspace }}/git_action_requirement/pages/email.html
-            attachments: app.zip, git_action_requirement/white_box_html/report.html
+            attachments: apps.tar, git_action_requirement/white_box_html/report.html
             ignore_cert: true
 
