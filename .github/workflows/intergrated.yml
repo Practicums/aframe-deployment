@@ -91,6 +91,7 @@ jobs:
             script: | 
               gcloud config set compute/region ${{ env.Region }}
               gcloud config set compute/zone ${{ env.Zone }}
+              kubectl delete secret aframe-tls 2> /dev/null
               gcloud container clusters delete ${{ env.Cluster_name }} --zone ${{ env.Zone }} -q 2> /dev/null
               gcloud endpoints services deploy /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/openapi.yaml 
               gcloud container clusters create ${{ env.Cluster_name }} --zone ${{ env.Zone }} 2> /dev/null
