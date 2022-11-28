@@ -174,7 +174,7 @@ jobs:
             server_port: 587
             # Optional whether this connection use TLS (default is true if server_port is 465)
             secure: true
-            subject: Github Actions job result
+            subject: AFrame Github Actions Job Result
             # Required recipients' addresses:
             to: ${{ env.GIT_COMMIT_COMMITTER_EMAIL }}
             # Required sender full name (address can be skipped):
