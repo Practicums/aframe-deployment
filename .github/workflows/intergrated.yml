@@ -89,10 +89,11 @@ jobs:
             script: | 
               gcloud config set compute/region ${{ env.Region }}
               gcloud config set compute/zone ${{ env.Zone }}
-              gcloud container clusters delete ${{ env.Cluster_name }} --zone ${{ env.Zone }} -q 2> /dev/null
               gcloud endpoints services deploy /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/openapi.yaml 
               gcloud container clusters create ${{ env.Cluster_name }} --zone ${{ env.Zone }} 2> /dev/null
               gcloud container clusters get-credentials ${{ env.Cluster_name }}
+              kubectl delete service ${{ env.Service_Name }} 
+              kubectl delete deployment ${{ env.Server_Name }}
               sleep 10
               helm install nginx-stable/nginx-ingress --set controller.service.loadBalancerIP="${{ env.Ext_IP }}",rbac.create=true --generate-name
               kubectl create deployment ${{ env.Server_Name }} --image=gcr.io/${{ env.Project_Name }}/${{ env.Name }}
@@ -100,7 +101,7 @@ jobs:
               sleep 60
               kubectl apply -f /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/ingress.yaml
               kubectl apply -f /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/ingress-tls.yaml
-              sleep 60
+              sleep 120
               /home/${{ secrets.SSH_USER }}/testproject/code/webapp_test.py ${{ env.URL }} > testproject_op.txt
               tail -n1 testproject_op.txt > report_url.txt
               /usr/bin/python3 /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/gen.py --pkgname "${{ env.pkgname }}" --long "AFrame Application" --short "AF" --url "${{ env.URL }}" --path "/home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/webapp/" --html "index.html"
