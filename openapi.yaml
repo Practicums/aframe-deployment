@@ -3,11 +3,11 @@ info:
   description: "A-Frame Web Application"
   title: "A-Frame"
   version: "1.0.0"
-host: "aframe.endpoints.metaverse-363005.cloud.goog"
+host: "af.endpoints.metaverse-363005.cloud.goog"
 basePath: "/"
 x-google-allow: all
 x-google-endpoints:
-- name: "aframe.endpoints.metaverse-363005.cloud.goog"
+- name: "af.endpoints.metaverse-363005.cloud.goog"
   allowCors: true
   target: 34.102.110.191
 consumes:

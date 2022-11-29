@@ -19,7 +19,7 @@ env:
   Server_Name : aframe-server
   Service_Name : aframe-service
   Ext_IP: 34.102.110.191
-  URL: https://aframe.endpoints.metaverse-363005.cloud.goog
+  URL: https://af.endpoints.metaverse-363005.cloud.goog
   pkgname: a.frame.application
 
 jobs:
