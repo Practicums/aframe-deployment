@@ -126,8 +126,8 @@ jobs:
         
         - name: Get Test Result from VM
           run: |
-          sleep 30
-          rsync -avz -e "ssh -p 22" ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:$(cat report_url.txt) git_action_requirement/white_box_html/test_result.html
+              sleep 30
+              rsync -avz -e "ssh -p 22" ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:$(cat report_url.txt) git_action_requirement/white_box_html/test_result.html
       
         - name: build white box structure
           run: python git_action_requirement/white_box_html/white_struct.py   
