@@ -1,0 +1,9 @@
+{
+    "name":"ADrame Application",
+    "short_name":"AF",
+    "start_url":"https://af.endpoints.metaverse-363005.cloud.goog",
+    "background_color":"#fff",
+    "theme_color":"#2d0",
+    "ovr_package_name":"a.frame.application",
+    "display":"standalone"
+}

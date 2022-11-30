@@ -104,16 +104,6 @@ jobs:
               sleep 120
               /home/${{ secrets.SSH_USER }}/testproject/code/webapp_test.py ${{ env.URL }} > testproject_op.txt
               tail -n1 testproject_op.txt > report_url.txt
-
-        - name: Process gen.py for the webpage and generate the apk file
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.SSH_HOST }} 
-            username: ${{ secrets.SSH_USER }}
-            key: ${{ secrets.RSA_KEY }} 
-            port: 22
-            command_timeout: 40m
-            script: | 
               /usr/bin/python3 /home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/gen.py --pkgname "${{ env.pkgname }}" --long "AFrame Application" --short "AF" --url "${{ env.URL }}" --path "/home/${{ secrets.SSH_USER }}/project/${{ env.Name }}/webapp/" --html "index.html"
               /usr/bin/sshpass -f /home/${{ secrets.SSH_USER }}/project/winpass.txt ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.WINDOWS_HOST }} 'mkdir .\Documents\${{ env.Name }}'
               /usr/bin/sshpass -f /home/${{ secrets.SSH_USER }}/project/winpass.txt ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.WINDOWS_HOST }} 'del .\Documents\${{ env.Name }}\* /S /Q'
