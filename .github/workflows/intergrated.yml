@@ -176,5 +176,5 @@ jobs:
             from: Metaverse CICD Developer # <user@example.com>
             # Optional plain body:
             html_body: file://${{ github.workspace }}/git_action_requirement/pages/email_aframe.html
-            attachments: ${{ env.Name }}.tar, file://${{ github.workspace }}/git_action_requirement/apk_installation_instructions.txt, git_action_requirement/white_box_html/report.html
+            attachments: ${{ env.Name }}.tar, git_action_requirement/apk_installation_instructions.txt, git_action_requirement/white_box_html/report.html
             ignore_cert: true
