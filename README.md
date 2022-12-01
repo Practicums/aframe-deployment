@@ -14,5 +14,6 @@ Following tasks are executed before commencement of the pipeline
 * Copying repository files over to linux instance.
 * Authenticating Docker.
 
-### Dockerization
+### Building Docker Image
 
+A nginx based docker image is built with aframe application scripts in _./webapp_ copied over to _/usr/share/nginx/html_. Once built, the image is tagged to pushed to GCP container registry.
