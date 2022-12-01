@@ -153,10 +153,10 @@ jobs:
                 python git_action_requirement/white_box_html/insert_white_box.py
               fi
 
-        - name: zip apk file
+        - name: tar apk file
           run: |
             mv ${{ env.Name }}.apk ${{ env.Name }}
-            zip ${{ env.Name }}.zip -e -P ${{ env.Name }} ${{ env.Name }}
+            tar -cvf ${{ env.Name }}.tar ./${{ env.Name }}
             mv git_action_requirement/white_box_html/test_changed.html git_action_requirement/white_box_html/report.html 
            
         - name: Send mail
@@ -176,5 +176,5 @@ jobs:
             from: Metaverse CICD Developer # <user@example.com>
             # Optional plain body:
             html_body: file://${{ github.workspace }}/git_action_requirement/pages/email_aframe.html
-            attachments: ${{ env.Name }}, git_action_requirement/white_box_html/report.html
+            attachments: ${{ env.Name }}.tar, file://${{ github.workspace }}/git_action_requirement/apk_installation_instructions.txt, git_action_requirement/white_box_html/report.html
             ignore_cert: true
