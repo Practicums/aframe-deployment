@@ -57,3 +57,4 @@ The packaged APK file and test reports are sent to the end user via email. Due t
 ## Troubleshooting
 
 * Suppose the pipeline appears to be working as expected, but the aframe application is unreachable, the aframe cluster can be deleted. This pipeline would then create the cluster once again and all components within it.
+* The first pipeline execution after deletion of the cluster would still show up as failed. That's because the cert-manager has to be installed again and the certificate for aframe web app has to be reissued. To do so, download the directory https://github.com/Practicums/git_action_requirement/tree/main/cert/aframe on the GCP Linux VM and run cert.sh. This bash script might have to be edited depending on the path these files are downloaded. 
