@@ -53,3 +53,7 @@ Using the oculus command-line utility _ovr-platform-util.exe_ and the _./webapp/
 ### Send Email
 
 The packaged APK file and test reports are sent to the end user via email. Due to security restrictions, the ".apk" extension is removed and added to a tar archive file which is attached to the email. APK installation instructions are also provided in the email as well. However, if the APK file has already been installed previously then there's no need for it to be installed again unless the URL has been changed. 
+
+## Troubleshooting
+
+* Suppose the pipeline appears to be working as expected, but the aframe application is unreachable, the aframe cluster can be deleted. This pipeline would then create the cluster once again and all components within it.
