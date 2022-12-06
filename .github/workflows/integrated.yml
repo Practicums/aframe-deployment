@@ -51,7 +51,7 @@ jobs:
         - name: Setting up Google Cloud
           uses: google-github-actions/setup-gcloud@v0
           with:
-            version: '286.0.0'
+            version: 'latest'
             service_account_key: ${{ secrets.GCP_KEY }}
             service_account_email: ${{ secrets.SERVICE_EMAIL }}
             project_id:  ${{ env.Project_Name }}
